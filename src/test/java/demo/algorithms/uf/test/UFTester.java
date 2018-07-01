@@ -1,6 +1,5 @@
 package demo.algorithms.uf.test;
 
-import com.sun.istack.internal.NotNull;
 import demo.algorithms.uf.UF;
 import org.junit.Assert;
 
@@ -26,5 +25,26 @@ public class UFTester {
             cs[i] = new int[]{Integer.parseInt(item[0]), Integer.parseInt(item[1])};
         }
         return cs;
+    }
+
+    public static void testComponent1(UF target) {
+        String unions = "0_5,5_6";
+        String conn = String.format("%s,0_6", unions);
+        String notConn = "0_1,0_3,2_3";
+        test(target, unions, conn, notConn);
+    }
+
+    public static void testComponent2(UF target) {
+        String unions = "1_2,7_2";
+        String conn = String.format("%s,1_7", unions);
+        String notConn = "0_1,0_3,2_3";
+        test(target, unions, conn, notConn);
+    }
+
+    public static void testComponent3(UF target) {
+        String unions = "8_3,3_4,4_9";
+        String conn = String.format("%s,8_9", unions);
+        String notConn = "0_1,0_3,2_3";
+        test(target, unions, conn, notConn);
     }
 }

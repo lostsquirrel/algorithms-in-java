@@ -1,6 +1,14 @@
 package demo.algorithms.uf;
 
 public interface UF {
+
+    default int[] init(int n) {
+        int[] data = new int[n];
+        for (int i = 0; i < n; i++) {
+            data[i] = i;
+        }
+        return data;
+    }
     /**
      *
      * add connection between p and q

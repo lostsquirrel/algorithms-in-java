@@ -5,10 +5,7 @@ public class QuickFindUF implements UF {
     private int[] data;
 
     public QuickFindUF(int n) {
-        data = new int[n];
-        for (int i = 0; i < n; i++) {
-            data[i] = i;
-        }
+        data = init(n);
     }
 
     @Override
