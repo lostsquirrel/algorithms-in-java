@@ -58,7 +58,11 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 <<<<<<< HEAD
+<<<<<<< HEAD
 **/target/
+=======
+/target/
+>>>>>>> add left top corner
 =======
 /target/
 >>>>>>> add left top corner
@@ -67,8 +71,13 @@ $RECYCLE.BIN/
 /.project
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 **/.idea/
 *.iml
+=======
+.idea/
+*.iml
+>>>>>>> add left top corner
 =======
 .idea/
 *.iml
