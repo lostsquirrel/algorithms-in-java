@@ -1,7 +1,6 @@
-package demo.algorithms.uf.test;
+package demo.algorithms.w01.test;
 
-import demo.algorithms.uf.WeightedPathCompressionUF;
-import demo.algorithms.uf.WeightedUF;
+import demo.algorithms.w01.WeightedPathCompressionUF;
 import org.junit.Test;
 
 public class WeightedPathCompressionUFTest {

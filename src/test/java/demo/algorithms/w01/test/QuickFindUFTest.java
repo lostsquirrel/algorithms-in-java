@@ -1,15 +1,18 @@
-package demo.algorithms.uf.test;
+package demo.algorithms.w01.test;
 
-import demo.algorithms.uf.QuickUnionUF;
+import demo.algorithms.w01.QuickFindUF;
 import org.junit.Test;
 
-public class QuickUnionUFTest {
+public class QuickFindUFTest {
+
 
     @Test
     public void test() {
-        QuickUnionUF uf = new QuickUnionUF(10);
+        QuickFindUF uf = new QuickFindUF(10);
         UFTester.testComponent1(uf);
         UFTester.testComponent2(uf);
         UFTester.testComponent3(uf);
     }
+
+
 }

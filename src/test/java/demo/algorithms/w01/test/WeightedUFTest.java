@@ -1,7 +1,6 @@
-package demo.algorithms.uf.test;
+package demo.algorithms.w01.test;
 
-import demo.algorithms.uf.QuickUnionUF;
-import demo.algorithms.uf.WeightedUF;
+import demo.algorithms.w01.WeightedUF;
 import org.junit.Test;
 
 public class WeightedUFTest {

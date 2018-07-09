@@ -1,4 +1,4 @@
-package demo.algorithms.uf;
+package demo.algorithms.w01;
 
 public class WeightedPathCompressionUF implements UF {
     private int[] data;

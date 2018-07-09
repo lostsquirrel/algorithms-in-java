@@ -1,4 +1,4 @@
-package demo.algorithms.uf;
+package demo.algorithms.w01;
 
 public class QuickFindUF implements UF {
 

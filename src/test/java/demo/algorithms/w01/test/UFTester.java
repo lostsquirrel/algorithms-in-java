@@ -1,6 +1,6 @@
-package demo.algorithms.uf.test;
+package demo.algorithms.w01.test;
 
-import demo.algorithms.uf.UF;
+import demo.algorithms.w01.UF;
 import org.junit.Assert;
 
 public class UFTester {

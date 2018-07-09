@@ -1,15 +1,11 @@
-package demo.algorithms.uf;
+package demo.algorithms.w01;
 
-public class WeightedUF implements UF {
+public class QuickUnionUF implements UF {
+
     private int[] data;
-    private int[] sz;
 
-    public WeightedUF(int n) {
+    public QuickUnionUF(int n) {
         data = init(n);
-        sz = new int[n];
-        for (int i = 0; i < n; i++) {
-            sz[i] = 1;
-        }
     }
 
     private int root(int i) {
@@ -24,13 +20,8 @@ public class WeightedUF implements UF {
         int rp = root(p);
         int rq = root(q);
         if (rp != rq) {
-            if (sz[rp] > sz[rq]) {
-                data[rq] = rp;
-                sz[rp] += sz[rq];
-            } else {
-                data[rp] = rq;
-                sz[rq] += sz[rp];
-            }
+
+            data[rq] = rp;
         }
     }
 
