@@ -30,6 +30,14 @@ public class Deque<Item> implements Iterable<Item> {
      * tail of deque
      */
     private Node tail;
+
+    /**
+     *   construct an empty deque
+     */
+    public Deque() {
+
+    }
+
     /**
      *  create and return iterator
      * @return an iterator over items in order from front to end
@@ -57,12 +65,6 @@ public class Deque<Item> implements Iterable<Item> {
         };
     }
 
-    /**
-     *   construct an empty deque
-     */
-    public Deque() {
-
-    }
 
     /**
      *    is the deque empty?
