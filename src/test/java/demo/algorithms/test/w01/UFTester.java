@@ -1,4 +1,4 @@
-package demo.algorithms.w01.test;
+package demo.algorithms.test.w01;
 
 import demo.algorithms.w01.UF;
 import org.junit.Assert;

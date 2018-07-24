@@ -1,4 +1,4 @@
-package demo.algorithms.w01.test;
+package demo.algorithms.test.w01;
 
 import demo.algorithms.w01.QuickUnionUF;
 import org.junit.Test;

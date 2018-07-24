@@ -91,10 +91,13 @@ public class Point implements Comparable<Point> {
      */
     public int compareTo(Point that) {
         /* YOUR CODE HERE */
+        int i;
         if (this.y == that.y) {
-            return (that.x - this.x) % 2;
+            i = new Integer(this.x).compareTo(that.x);
+        } else {
+            i = new Integer(this.y).compareTo(that.y);
         }
-        return (that.y - this.y) % 2;
+        return i;
     }
 
     /**

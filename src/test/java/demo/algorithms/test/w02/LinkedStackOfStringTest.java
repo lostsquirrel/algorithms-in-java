@@ -1,4 +1,4 @@
-package demo.algorithms.w02.test;
+package demo.algorithms.test.w02;
 
 import demo.algorithms.w02.LinkedStackOfString;
 import org.junit.Assert;
