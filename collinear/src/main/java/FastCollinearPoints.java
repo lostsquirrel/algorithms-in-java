@@ -1,10 +1,3 @@
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdOut;
-
-import java.util.Arrays;
-import java.util.Comparator;
-
 /*************************************************************************
  *  Compilation:  javac FastCollinearPoints.java
  *  Execution:    none
@@ -15,6 +8,13 @@ import java.util.Comparator;
 
  *
  *************************************************************************/
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdOut;
+
+import java.util.Arrays;
+import java.util.Comparator;
+
 
 public class FastCollinearPoints {
     private LineSegment[] segments;
