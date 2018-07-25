@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class BruteCollinerPointsTest {
+public class FastCollinearPointsTest {
 
     @Test
     public void test8() {
@@ -32,7 +32,7 @@ public class BruteCollinerPointsTest {
         StdDraw.show();
 
         // print and draw the line segments
-        BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+        FastCollinearPoints collinear = new  FastCollinearPoints(points);
         for (LineSegment segment : collinear.segments()) {
             StdOut.println(segment);
             segment.draw();
