@@ -8,12 +8,12 @@
 
  *
  *************************************************************************/
+
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 
 public class FastCollinearPoints {
@@ -28,37 +28,48 @@ public class FastCollinearPoints {
      */
     public FastCollinearPoints(Point[] points) {
         counter = 0;
-        segments = new LineSegment[(points.length + 3) / 4];
+        segments = new LineSegment[(points.length + 3)];
         if (points == null) {
             throw new IllegalArgumentException();
         }
 //        Arrays.sort(points, Point::compareTo);
 //        Arrays.sort(points);
-        int i = 0;
-        while (i < points.length - 2) {
+
+
+        for (int i = 0; i < points.length; i++) {
 //            if (points[i].slopeOrder())
             Point px = points[i];
-            Arrays.sort(points, i + 1, points.length, px.slopeOrder());
-
+            Point[] tps = new Point[points.length - 1];
+            for (int j = 0, k = 0; j < tps.length; ) {
+              if (j == i) {
+                  k++;
+              }
+              tps[j++] = points[k++];
+            }
+            Arrays.sort(tps, px.slopeOrder());
+//            StdDraw.show();
             int x = 0;
-            for (int j = i + 1; j < points.length; j++) {
-                System.out.println(px.slopeTo(points[j]));
+            Point pp = null;
+            for (int j = 0; j < tps.length - 2; j++) {
+                Double s1 = px.slopeTo(tps[j + 1]);
+                Double s2 = px.slopeTo(tps[j + 2]);
+                System.out.printf("%f,%f\n", s1, s2);
+                if (s1.equals(s2)) {
+                    x++;
+                    pp = tps[j + 2];
+                }
+
             }
-            while (new Double(px.slopeTo(points[i + 1]))
-                    .equals(px.slopeTo(points[i + 2]))) {
-                i++;
-                x++;
+//
+////            System.out.println(px.slopeTo(points[i + 1]));
+            if (x >= 3) {
+                segments[counter++] = new LineSegment(px, pp);
             }
-//            System.out.println(px.slopeTo(points[i + 1]));
-            if (x >= 4) {
-                segments[counter++] = new LineSegment(px, points[i + 1]);
-            }
-            if (x == 0) {
-                i++;
-            }
+
+            System.out.println("----------------------------");
         }
         LineSegment[] sx = new LineSegment[counter];
-        for (int j = 0; j < counter; i++) {
+        for (int j = 0; j < counter; j++) {
             sx[j] = segments[j];
         }
         segments = sx;
