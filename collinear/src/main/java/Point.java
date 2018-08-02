@@ -98,6 +98,7 @@ public class Point implements Comparable<Point> {
             i = new Integer(this.y).compareTo(that.y);
         }
         return i;
+
     }
 
     /**

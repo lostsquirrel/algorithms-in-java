@@ -8,6 +8,7 @@
 
  *
  *************************************************************************/
+
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
@@ -57,12 +58,14 @@ public class BruteCollinearPoints {
             sx[i] = segments[i];
         }
         segments = sx;
+
     }
 
     /**
      * @return the number of line segments
      */
     public int numberOfSegments() {
+
         return counter;
     }
 

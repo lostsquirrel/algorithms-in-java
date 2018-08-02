@@ -59,6 +59,7 @@ $RECYCLE.BIN/
 *.lnk
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 **/target/
 =======
 /target/
@@ -66,14 +67,20 @@ $RECYCLE.BIN/
 =======
 **/target/
 >>>>>>> add part of collinear
+=======
+**/target/
+>>>>>>> b9c8c22777f59a5c1b74d467ccd322022832825d
 /.settings/
 /.classpath
 /.project
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> add part of collinear
+=======
+>>>>>>> b9c8c22777f59a5c1b74d467ccd322022832825d
 **/.idea/
 *.iml
 =======

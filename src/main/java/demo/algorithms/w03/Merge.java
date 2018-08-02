@@ -1,7 +1,5 @@
 package demo.algorithms.w03;
 
-import java.util.Arrays;
-
 public class Merge {
 
     private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
