@@ -57,33 +57,11 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 **/target/
-=======
-/target/
->>>>>>> add left top corner
-=======
-**/target/
->>>>>>> add part of collinear
-=======
-**/target/
->>>>>>> b9c8c22777f59a5c1b74d467ccd322022832825d
 /.settings/
 /.classpath
 /.project
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> add part of collinear
-=======
->>>>>>> b9c8c22777f59a5c1b74d467ccd322022832825d
 **/.idea/
 *.iml
-=======
-.idea/
-*.iml
->>>>>>> add left top corner
+
