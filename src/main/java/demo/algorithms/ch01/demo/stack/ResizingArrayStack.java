@@ -2,14 +2,14 @@ package demo.algorithms.ch01.demo.stack;
 
 import java.util.Iterator;
 
-public class Stack<Item> implements Iterable<Item> {
+public class ResizingArrayStack<Item> implements Iterable<Item> {
 
     private Item[] a;
     private int N;
     private int DEFAULT_CAPACITY = 12;
 
     // create an empty stack
-    public Stack() {
+    public ResizingArrayStack() {
         a = (Item[]) new Object[DEFAULT_CAPACITY];
     }
 
@@ -48,6 +48,14 @@ public class Stack<Item> implements Iterable<Item> {
 
     @Override
     public Iterator<Item> iterator() {
-        return null;
+        return new ReverseArrayIterator();
+    }
+
+    private class ReverseArrayIterator implements Iterator<Item>
+    {
+        private int i = N;
+        public boolean hasNext() { return i > 0; }
+        public Item next() { return a[--i]; }
+        public void remove() { }
     }
 }
