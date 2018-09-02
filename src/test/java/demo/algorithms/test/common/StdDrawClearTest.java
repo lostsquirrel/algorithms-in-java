@@ -12,6 +12,7 @@ public class StdDrawClearTest {
         StdDraw.setPenRadius(0.05);
         double x = 0.1;
         for (Color c : colors){
+            StdDraw.clear();
             StdDraw.setPenColor(c);
             StdDraw.point(x, x);
             x += 0.1;
@@ -21,6 +22,13 @@ public class StdDrawClearTest {
                 e.printStackTrace();
             }
             StdDraw.clear(c);
+            try {
+                TimeUnit.MILLISECONDS.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        StdDraw.clear();
+        System.exit(0);
     }
 }
