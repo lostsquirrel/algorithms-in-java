@@ -1,4 +1,4 @@
-package demo.algorithms.ch01.demo.stack;
+package demo.algorithms.ch14.demo.stack;
 
 import java.util.Iterator;
 

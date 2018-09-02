@@ -1,9 +1,9 @@
-package demo.algorithms.ch01.demo.analysis;
+package demo.algorithms.ch14.demo.analysis;
 
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
-public class DoublingRatio {
+public class DoublingTest {
     public static double timeTrial(int N) { // Time ThreeSum.count() for N random 6-digit ints.
         int MAX = 1000000;
         int[] a = new int[N];
@@ -14,14 +14,10 @@ public class DoublingRatio {
         return timer.elapsedTime();
     }
 
-    // same as for DoublingTest (page 177)
-    public static void main(String[] args) {
-        double prev = timeTrial(125);
-        for (int N = 250; true; N += N) {
+    public static void main(String[] args) { // Print table of running times.
+        for (int N = 250; true; N += N) { // Print time for problem size N.
             double time = timeTrial(N);
-            StdOut.printf("%6d %7.1f ", N, time);
-            StdOut.printf("%5.1f\n", time / prev);
-            prev = time;
+            StdOut.printf("%7d %5.1f\n", N, time);
         }
     }
 }

@@ -1,40 +1,41 @@
-package demo.algorithms.ch01.demo.stack;
+package demo.algorithms.ch14.demo.stack;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
-public class FixedCapacityStackOfStrings {
-    private String[] a; // stack entries
+public class FixedCapacityStack<Item> {
+
+    private Item[] a; // stack entries
     private int N; // size
 
-    // create an empty stack of capacity cap
-    public FixedCapacityStackOfStrings(int cap) {
-        a = new String[cap];
+    //create an empty stack of capacity cap
+    public FixedCapacityStack(int cap) {
+        a = (Item[]) new Object[cap];
     }
 
-    // add a string
-    public void push(String item) {
+    //add an item
+    public void push(Item item) {
         a[N++] = item;
     }
 
-    // remove the most recently added string
-    public String pop() {
+    //remove the most recently added item
+    public Item pop() {
         return a[--N];
     }
 
-    // is the stack empty?
+    //is the stack empty?
     public boolean isEmpty() {
         return N == 0;
     }
 
-    // number of strings on the stac
+    //number of items on the stack
     public int size() {
         return N;
     }
 
     public static void main(String[] args) {
-        FixedCapacityStackOfStrings s;
-        s = new FixedCapacityStackOfStrings(100);
+        FixedCapacityStack<String> s;
+        s = new FixedCapacityStack<>(100);
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
             if (!item.equals("-"))

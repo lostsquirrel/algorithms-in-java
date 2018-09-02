@@ -1,4 +1,4 @@
-package demo.algorithms.ch01.demo.analysis;
+package demo.algorithms.ch14.demo.analysis;
 
 public class Stopwatch {
     private final long start;

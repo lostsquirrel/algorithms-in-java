@@ -1,4 +1,4 @@
-package demo.algorithms.ch01.demo;
+package demo.algorithms.ch14.demo;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
