@@ -43,11 +43,6 @@ public class Percolation {
      * v top
      */
     private final int vTop;
-//
-    /**
-     * v bottom
-     */
-    private final int vBottom;
     /**
      * bottom
      */
@@ -57,25 +52,18 @@ public class Percolation {
      * percolates state
      */
     private boolean percolates;
-//    /**
-//     * only check after reach the top
-//     */
-//    private boolean percolatesPre;
 
     public Percolation(int n) {
         if (n <= 0) {
             throw new IllegalArgumentException("n ≤ 0 ");
         }
-        /*
-      size union find data
-     */
+        /* size union find data  */
         int size = n * n + 2;
         uf = new WeightedQuickUnionUF(size);
         openState = new boolean[size - 2];
         bottom = new int[n];
         this.n = n;
         vTop = size - 1;
-        vBottom = size - 2;
     }
 
     /**
@@ -93,7 +81,9 @@ public class Percolation {
         openSites += 1;
         openState[thisSite] = true;
 
+//       if only one, open is percolate
         if (n == 1) {
+            percolates = true;
             return;
         }
         if (row == 1) {
@@ -142,7 +132,7 @@ public class Percolation {
             checkTop(row, col);
             checkBottom(row, col);
         }
-
+// how to improve
         if (!percolates) {
             for (int i = 0; i < n; i++) {
                 int site = bottom[i];
@@ -233,23 +223,6 @@ public class Percolation {
         return uf.connected(s, vTop);
     }
 
-//    private boolean isToTop(int x) {
-//        return isToRow(x, 1);
-//    }
-
-//    private boolean isToBottom(int x) {
-//        return isToRow(x, n);
-//    }
-//    private boolean isToRow(int x, int row) {
-//        boolean isToTop = false;
-//        for (int col = 1; col <= n; col++) {
-//            if (uf.connected(x, getThisSite(row, col))) {
-//                isToTop = true;
-//                break;
-//            }
-//        }
-//        return isToTop;
-//    }
     /**
      * number of open sites
      *
@@ -276,29 +249,7 @@ public class Percolation {
             throw new IllegalArgumentException("" + Math.max(row, col));
         }
     }
-//    public void string() {
-//        int index = 0;
-//        for (int i = 0; i < n + 2; i++) {
-//            for (int j = 0; j < n + 1; j++) {
-////                System.out.print(openState[i][j]);
-//                System.out.printf("% 4d", index);
-//                index++;
-//            }
-//            System.out.println();
-//        }
-//       System.out.println(uf.connected(vTop, 12));
-//       System.out.println(uf.connected(23, 12));
-//       System.out.println(uf.connected(23, 34));
-//       System.out.println(uf.connected(45, 34));
-//       System.out.println(uf.connected(45, 56));
-//       System.out.println(uf.connected(67, 56));
-//       System.out.println(uf.connected(67, 78));
-//       System.out.println(uf.connected(89, 78));
-//       System.out.println(uf.connected(89, 100));
-//       System.out.println(uf.connected(111, 100));
-//       System.out.println(uf.connected(111, vBottom));
-//       System.out.println(uf.connected(vTop, vBottom));
-//    }
+
     public static void main(String[] args) {
 //      test in junit
     }

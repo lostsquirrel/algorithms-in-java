@@ -104,6 +104,23 @@ public class PercolationTest {
     }
 
     @Test
+    public void test1() {
+        int n = 1;
+        Percolation p = new Percolation(n);
+        p.open(1, 1);
+        Assert.assertTrue(p.percolates());
+    }
+
+    @Test
+    public void test2() {
+        int n = 2;
+        Percolation p = new Percolation(n);
+        p.open(1, 1);
+        p.open(2, 2);
+        p.open(1, 2);
+        Assert.assertTrue(p.percolates());
+    }
+    @Test
     public void test6() {
         int n = 6;
         Percolation p = new Percolation(n);
