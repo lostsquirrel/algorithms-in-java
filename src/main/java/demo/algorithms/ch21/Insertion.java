@@ -3,19 +3,11 @@ package demo.algorithms.ch21;
 public class Insertion extends Example {
 
     public static void sort(Comparable[] a) {
-        for (int i = 1; i < a.length; i++) {
-            boolean flag = false;
-            Comparable x = a[i];
-            for (int j = 0; j <= i; j++) {
-                if (less(a[i], a[j])) {
-                    flag = true;
-                }
-                if (flag) {
-                    Comparable tmp = a[j];
-                    a[j] = x;
-                    x = tmp;
-                }
-            }
+        int N = a.length;
+        for (int i = 1; i < N; i++)
+        { // Insert a[i] among a[i-1], a[i-2], a[i-3]... ..
+            for (int j = i; j > 0 && less(a[j], a[j-1]); j--)
+                exch(a, j, j-1);
         }
     }
 }
