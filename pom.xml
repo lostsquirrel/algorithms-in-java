@@ -12,6 +12,7 @@
         <module>collinear</module>
         <module>queues</module>
         <module>percolation</module>
+        <module>ch02</module>
     </modules>
     <properties>
         <java-version>1.8</java-version>
