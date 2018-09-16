@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 
 public class BruteCollinearPoints {
-    private LineSegment[] segments;
+    private final LineSegment[] segments;
 
     private int counter;
 
@@ -27,50 +27,46 @@ public class BruteCollinearPoints {
      * @param points 4 points
      */
     public BruteCollinearPoints(Point[] points) {
-        counter = 0;
-        segments = new LineSegment[(points.length + 3) / 4];
         if (points == null) {
             throw new IllegalArgumentException();
         }
+        counter = 0;
+        segments = new LineSegment[(points.length + 3) / 4];
 //        Arrays.sort(points, Point::compareTo);
 //        Arrays.sort(points);
-        for (int i = 0; i < points.length; i += 4) {
+        for (int i = 0; i <= points.length - 4; i += 4) {
 //            if (points[i].slopeOrder())
             Arrays.sort(points, i, i + 4, Point::compareTo);
-            Point p0 = points[i];
-            Point px = null;
-            Double s1 = null;
-            for (int j = 1; j < 4; j++) {
-                px = points[i + j];
-                Double sx = p0.slopeTo(px);
-                System.out.println(String.format("%f, %f", s1, sx));
-                if (s1 == null) {
-                    s1 = sx;
-                } else if (!s1.equals(sx)) {
-                    break;
+            Point pp = null;
+            for (int j = 0; j < 4; j++) {
+                Point px = points[i + j];
+                if (px == null) {
+                    throw new IllegalArgumentException();
                 }
+                if (pp != null && px.compareTo(pp) == 0) {
+                    throw new IllegalArgumentException();
+                }
+                pp = px;
 
             }
-            segments[counter++] = new LineSegment(p0, px);
+            if (Double.compare(points[i].slopeTo(points[i + 1]),
+                    points[i + 1].slopeTo(points[i + 2])) == 0
+                    && Double.compare(points[i].slopeTo(points[i + 2]),
+                    points[i + 1].slopeTo(points[i + 3])) == 0) {
+                segments[counter++] = new LineSegment(points[i], points[i + 3]);
+            }
         }
-        LineSegment[] sx = new LineSegment[counter];
-        for (int i = 0; i < counter; i++) {
-            sx[i] = segments[i];
-        }
-        segments = sx;
-
     }
 
     /**
      * @return the number of line segments
      */
     public int numberOfSegments() {
-
         return counter;
     }
 
     public LineSegment[] segments() {
-        return segments;
+        return Arrays.copyOf(segments, counter);
     }
 
     public static void main(String[] args) {
