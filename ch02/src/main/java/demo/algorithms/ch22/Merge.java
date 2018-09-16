@@ -1,8 +1,8 @@
-package demo.algorithms.w03;
+package demo.algorithms.ch22;
 
 public class Merge {
 
-    private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
+    public static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
         for (int i = lo; i <= hi; i++) {
             aux[i] = a[i];
         }
