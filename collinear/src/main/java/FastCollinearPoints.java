@@ -27,6 +27,9 @@ public class FastCollinearPoints {
      * @param points 4 points
      */
     public FastCollinearPoints(Point[] points) {
+        if (points == null) {
+            throw new IllegalArgumentException();
+        }
         counter = 0;
         segments = new LineSegment[(points.length + 3)];
         if (points == null) {
@@ -53,20 +56,20 @@ public class FastCollinearPoints {
             for (int j = 0; j < tps.length - 2; j++) {
                 Double s1 = px.slopeTo(tps[j + 1]);
                 Double s2 = px.slopeTo(tps[j + 2]);
-                System.out.printf("%f,%f\n", s1, s2);
+//                System.out.printf("%f,%f\n", s1, s2);
                 if (s1.equals(s2)) {
                     x++;
                     pp = tps[j + 2];
                 }
 
             }
-//
+
 ////            System.out.println(px.slopeTo(points[i + 1]));
             if (x >= 3) {
                 segments[counter++] = new LineSegment(px, pp);
             }
 
-            System.out.println("----------------------------");
+//            System.out.println("----------------------------");
         }
         LineSegment[] sx = new LineSegment[counter];
         for (int j = 0; j < counter; j++) {
