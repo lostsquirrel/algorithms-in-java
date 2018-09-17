@@ -31,13 +31,15 @@ public class BruteCollinearPoints {
             throw new IllegalArgumentException();
         }
         counter = 0;
-        segments = new LineSegment[(points.length + 3) / 4];
+        segments = new LineSegment[points.length];
 //        Arrays.sort(points, Point::compareTo);
 //        Arrays.sort(points);
-        for (int i = 0; i <= points.length - 4; i += 4) {
+        for (int i = 0; i <= points.length - 4; i++) {
 //            if (points[i].slopeOrder())
             Arrays.sort(points, i, i + 4, Point::compareTo);
             Point pp = null;
+            Double slop = null;
+            boolean hasLine = true;
             for (int j = 0; j < 4; j++) {
                 Point px = points[i + j];
                 if (px == null) {
@@ -46,13 +48,18 @@ public class BruteCollinearPoints {
                 if (pp != null && px.compareTo(pp) == 0) {
                     throw new IllegalArgumentException();
                 }
-                pp = px;
+                if (j == 1) {
+                    slop = pp.slopeTo(px);
+                }
+                if (j > 1 && Double.compare(slop, pp.slopeTo(px)) != 0) {
+                    break;
+                }
 
+                pp = px;
+                StdOut.println(px);
             }
-            if (Double.compare(points[i].slopeTo(points[i + 1]),
-                    points[i + 1].slopeTo(points[i + 2])) == 0
-                    && Double.compare(points[i].slopeTo(points[i + 2]),
-                    points[i + 1].slopeTo(points[i + 3])) == 0) {
+            StdOut.println();
+            if (hasLine) {
                 segments[counter++] = new LineSegment(points[i], points[i + 3]);
             }
         }
@@ -93,7 +100,7 @@ public class BruteCollinearPoints {
         // print and draw the line segments
         BruteCollinearPoints collinear = new BruteCollinearPoints(points);
         for (LineSegment segment : collinear.segments()) {
-            StdOut.println(segment);
+//            StdOut.println(segment);
             segment.draw();
         }
         StdDraw.show();

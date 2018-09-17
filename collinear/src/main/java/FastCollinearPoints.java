@@ -113,7 +113,7 @@ public class FastCollinearPoints {
         // print and draw the line segments
         FastCollinearPoints collinear = new FastCollinearPoints(points);
         for (LineSegment segment : collinear.segments()) {
-            StdOut.println(segment);
+//            StdOut.println(segment);
             segment.draw();
         }
         StdDraw.show();
