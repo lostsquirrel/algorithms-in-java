@@ -24,7 +24,7 @@ public class PointTest {
     public void testCompareToNull() {
         new Point(1, 1).compareTo(null);
     }
-    
+
     @Test
     public void testSlopeTo() {
         Point p0 = new Point(1, 1);
@@ -44,5 +44,26 @@ public class PointTest {
     @Test
     public void test10() {
         Assert.assertTrue(Double.NEGATIVE_INFINITY == new Point(433, 235).slopeTo(new Point(433, 106)));
+    }
+
+    @Test
+    public void testSlopOrder() {
+        Point p                         = new Point(4, 5);
+        Point q                         = new Point(2, 5);
+        Point r                         = new Point(6, 5);
+        int compare = p.slopeOrder().compare(q, r);
+        double d1 = p.slopeTo(q);
+        double d2 = p.slopeTo(r);
+        logger.debug("{},{}, {}", d1, d2, compare);
+        Assert.assertTrue(Double.compare(0, compare) == 0);
+        Assert.assertTrue(Double.compare(0, d1) == 0);
+        Assert.assertTrue(Double.compare(0, d2) == 0);
+    }
+
+    @Test
+    public void testSlopOrder1() {
+        Point p                         = new Point(4, 5);
+        Point q                         = new Point(2, 5);
+        p.slopeOrder().compare(q, null);
     }
 }

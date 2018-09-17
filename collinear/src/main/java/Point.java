@@ -9,11 +9,16 @@
  *
  *  Description:  points in the plane
  ******************************************************************************/
-import java.util.Comparator;
+
 import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdOut;
+
+import java.util.Comparator;
 
 public class Point implements Comparable<Point> {
 
+    private static final int UP_LIMIT = 32767;
+    private static final int LOW_LIMIT = 0;
     private final int x;     // x-coordinate of this point
     private final int y;     // y-coordinate of this point
 
@@ -32,7 +37,7 @@ public class Point implements Comparable<Point> {
     }
 
     private void rangeCheck(int a) {
-        if (a < 0 || a > 32767) {
+        if (a < LOW_LIMIT || a > UP_LIMIT) {
             throw new IllegalArgumentException();
         }
     }
@@ -75,6 +80,9 @@ public class Point implements Comparable<Point> {
             }
             return Double.POSITIVE_INFINITY;
         }
+        if (that.y == this.y) {
+            return 0;
+        }
         return (that.y - this.y) * 1.0 / (that.x - this.x);
     }
 
@@ -92,9 +100,7 @@ public class Point implements Comparable<Point> {
      */
     public int compareTo(Point that) {
         /* YOUR CODE HERE */
-        if (that == null) {
-            throw new IllegalArgumentException();
-        }
+
         int i;
         if (this.y == that.y) {
             i = Integer.compare(this.x, that.x);
@@ -113,7 +119,13 @@ public class Point implements Comparable<Point> {
      */
     public Comparator<Point> slopeOrder() {
         /* YOUR CODE HERE */
-        return Comparator.comparingDouble(this::slopeTo);
+        Point that = this;
+        return new Comparator<Point>() {
+            @Override
+            public int compare(Point o1, Point o2) {
+                return  Double.compare(that.slopeTo(o1), that.slopeTo(o2));
+            }
+        };
     }
 
 
