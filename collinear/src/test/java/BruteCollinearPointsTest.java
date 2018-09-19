@@ -1,6 +1,7 @@
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.Stopwatch;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -24,11 +25,18 @@ public class BruteCollinearPointsTest {
     }
     @Test
     public void test8() {
+//        2
         draw("input8.txt");
     }
     @Test
     public void test40() {
+//        4
         draw("input40.txt");
+    }
+    @Test
+    public void input48() {
+//        6
+        draw("input48.txt");
     }
     @Test
     public void equidistant() {
@@ -65,15 +73,15 @@ public class BruteCollinearPointsTest {
         }
     }
 
-    private void drawPoints(Point[] points) {
+    public static void drawPoints(Point[] points) {
         StdDraw.setPenRadius(0.005);
         for (Point p : points) {
-            StdOut.println(p);
+//            StdOut.println(p);
             p.draw();
         }
     }
 
-    private void drawLine(Point[] points) {
+    public static void drawLine(Point[] points) {
         StdDraw.setPenRadius(0.001);
         BruteCollinearPoints collinear = new BruteCollinearPoints(points);
         for (LineSegment segment : collinear.segments()) {
@@ -87,5 +95,30 @@ public class BruteCollinearPointsTest {
     public void testIn() {
         In in = new In("input8.txt");
         StdOut.println();
+    }
+    @Test
+    public void testInOfNull() {
+        In in = new In("nulloneinten.txt");
+        int n = Integer.parseInt(in.readLine().trim());
+        Point[] points = new Point[n];
+        for (int i = 0; i < n; i++) {
+            String s = in.readLine();
+            if (s == null || s.trim().length() == 0) {
+                continue;
+            }
+            if ("null".equals(s.trim())) {
+                points[i] = null;
+            } else {
+                s = s.trim();
+                int seperator = s.indexOf(' ');
+                String s1 = s.substring(0, seperator);
+                String s2 = s.substring(seperator, s.length()).trim();
+                int x = Integer.parseInt(s1);
+                int y = Integer.parseInt(s2);
+                points[i] = new Point(x, y);
+            }
+
+        }
+        StdOut.println(Arrays.toString(points));
     }
 }
