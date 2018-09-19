@@ -9,6 +9,8 @@
  *
  *************************************************************************/
 
+import edu.princeton.cs.algs4.StdOut;
+
 import java.util.Arrays;
 
 
@@ -55,31 +57,56 @@ public class FastCollinearPoints {
         Point[] copy = Arrays.copyOf(points, n);
         Point[] countedHead = new Point[n];
         Point[] countedTail = new Point[n];
-        int c = 0;
+        Point[] s = new Point[n];
+
+
+        int sc = 0;
         for (int i = 0; i < points.length; i++) {
             Point px = points[i];
             Arrays.sort(copy, px.slopeOrder());
             if (px.compareTo(copy[1]) == 0) {
                 throw new IllegalArgumentException();
             }
-            for (int j = 0; j < copy.length - 2; j++) {
-                int z = px.slopeOrder().compare(copy[j], copy[j + 1]);
-                int zx = px.slopeOrder().compare(copy[j + 1], copy[j + 2]);
-                if (zx == 0 && z == 0) {
-                    Point[] s = new Point[]{px,  copy[j], copy[j + 1], copy[j + 2]};
-                    Arrays.sort(s, Point::compareTo);
-                    if (!contains(countedHead, s[0], c)
-                            || !contains(countedTail, s[3], c)) {
-                        countedHead[c] = s[0];
-                        countedTail[c] = s[3];
-                        st[c++] = new LineSegment(s[0], s[3]);
+            Double prevSlop = null;
+            Double ppSlop = null;
+            s[0] = px;
+            int c = 1;
+            for (int j = 1; j < copy.length; j++) {
+                double slopj = px.slopeTo(copy[j]);
+                StdOut.println(slopj);
+                if (j > 1) {
+                    if (ppSlop != null && Double.compare(prevSlop, slopj) == 0) {
+                        if (Double.compare(ppSlop, prevSlop) != 0) {
+                            s[c++] = copy[j - 1];
+                        }
+                        s[c++] = copy[j];
+                    } else {
+
+                        if (c >= 4) {
+                            Arrays.sort(s, 0, c, Point::compareTo);
+                            if (!contains(countedHead, s[0], sc)
+                                    || !contains(countedTail, s[c - 1], sc)) {
+                                countedHead[sc] = s[0];
+                                countedTail[sc] = s[c - 1];
+                                st[sc++] = new LineSegment(s[0], s[c - 1]);
+                                break;
+                            } else {
+                                c = 1;
+                            }
+                        } else {
+                            c = 1;
+                        }
                     }
+
                 }
+                ppSlop = prevSlop;
+                prevSlop = slopj;
+
             }
 
         }
-        counter = c;
-        segments = Arrays.copyOf(st, c);
+        counter = sc;
+        segments = Arrays.copyOf(st, sc);
     }
 
     private boolean contains(Point[] points, Point point, int n) {
