@@ -9,17 +9,13 @@
  *
  *************************************************************************/
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Arrays;
 
 
 public class FastCollinearPoints {
-    private LineSegment[] segments;
+    private final LineSegment[] segments;
 
-    private int counter;
+    private final int counter;
 
     /**
      * // finds all line segments containing 4 points
@@ -28,54 +24,72 @@ public class FastCollinearPoints {
      */
     public FastCollinearPoints(Point[] points) {
         if (points == null) {
+            counter = 0;
+            segments = new LineSegment[0];
             throw new IllegalArgumentException();
         }
-        counter = 0;
-        segments = new LineSegment[(points.length + 3)];
-        if (points == null) {
-            throw new IllegalArgumentException();
-        }
-//        Arrays.sort(points, Point::compareTo);
-//        Arrays.sort(points);
+        int n = points.length;
 
-
-        for (int i = 0; i < points.length; i++) {
-//            if (points[i].slopeOrder())
-            Point px = points[i];
-            Point[] tps = new Point[points.length - 1];
-            for (int j = 0, k = 0; j < tps.length; ) {
-              if (j == i) {
-                  k++;
-              }
-              tps[j++] = points[k++];
-            }
-            Arrays.sort(tps, px.slopeOrder());
-//            StdDraw.show();
-            int x = 0;
-            Point pp = null;
-            for (int j = 0; j < tps.length - 2; j++) {
-                Double s1 = px.slopeTo(tps[j + 1]);
-                Double s2 = px.slopeTo(tps[j + 2]);
-//                System.out.printf("%f,%f\n", s1, s2);
-                if (s1.equals(s2)) {
-                    x++;
-                    pp = tps[j + 2];
+        if (n < 4) {
+            segments = new LineSegment[0];
+            counter = 0;
+            if (n > 0) {
+                if (points[0] == null) {
+                    throw new IllegalArgumentException();
                 }
-
+            }
+            if (n > 1) {
+                if (points[1] == null || points[0].compareTo(points[1]) == 0) {
+                    throw new IllegalArgumentException();
+                }
+            }
+            if (n > 2) {
+                if (points[2] == null || points[0].compareTo(points[2]) == 0
+                        || points[1].compareTo(points[2]) == 0) {
+                    throw new IllegalArgumentException();
+                }
+            }
+            return;
+        }
+        LineSegment[] st = new LineSegment[n];
+        Point[] copy = Arrays.copyOf(points, n);
+        Point[] countedHead = new Point[n];
+        Point[] countedTail = new Point[n];
+        int c = 0;
+        for (int i = 0; i < points.length; i++) {
+            Point px = points[i];
+            Arrays.sort(copy, px.slopeOrder());
+            if (px.compareTo(copy[1]) == 0) {
+                throw new IllegalArgumentException();
+            }
+            for (int j = 0; j < copy.length - 2; j++) {
+                int z = px.slopeOrder().compare(copy[j], copy[j + 1]);
+                int zx = px.slopeOrder().compare(copy[j + 1], copy[j + 2]);
+                if (zx == 0 && z == 0) {
+                    Point[] s = new Point[]{px,  copy[j], copy[j + 1], copy[j + 2]};
+                    Arrays.sort(s, Point::compareTo);
+                    if (!contains(countedHead, s[0], c)
+                            || !contains(countedTail, s[3], c)) {
+                        countedHead[c] = s[0];
+                        countedTail[c] = s[3];
+                        st[c++] = new LineSegment(s[0], s[3]);
+                    }
+                }
             }
 
-////            System.out.println(px.slopeTo(points[i + 1]));
-            if (x >= 3) {
-                segments[counter++] = new LineSegment(px, pp);
-            }
+        }
+        counter = c;
+        segments = Arrays.copyOf(st, c);
+    }
 
-//            System.out.println("----------------------------");
+    private boolean contains(Point[] points, Point point, int n) {
+        for (int i = 0; i < n; i++) {
+            Point px = points[i];
+            if (px.compareTo(point) == 0) {
+                return true;
+            }
         }
-        LineSegment[] sx = new LineSegment[counter];
-        for (int j = 0; j < counter; j++) {
-            sx[j] = segments[j];
-        }
-        segments = sx;
+        return false;
     }
 
     /**
@@ -91,31 +105,5 @@ public class FastCollinearPoints {
 
     public static void main(String[] args) {
 
-        // read the n points from a file
-        In in = new In(args[0]);
-        int n = in.readInt();
-        Point[] points = new Point[n];
-        for (int i = 0; i < n; i++) {
-            int x = in.readInt();
-            int y = in.readInt();
-            points[i] = new Point(x, y);
-        }
-
-        // draw the points
-        StdDraw.enableDoubleBuffering();
-        StdDraw.setXscale(0, 32768);
-        StdDraw.setYscale(0, 32768);
-        for (Point p : points) {
-            p.draw();
-        }
-        StdDraw.show();
-
-        // print and draw the line segments
-        FastCollinearPoints collinear = new FastCollinearPoints(points);
-        for (LineSegment segment : collinear.segments()) {
-//            StdOut.println(segment);
-            segment.draw();
-        }
-        StdDraw.show();
     }
 }

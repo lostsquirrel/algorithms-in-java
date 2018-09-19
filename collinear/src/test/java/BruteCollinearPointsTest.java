@@ -38,19 +38,17 @@ public class BruteCollinearPointsTest {
 //        6
         draw("input48.txt");
     }
-    @Test
-    public void equidistant() {
-        draw("equidistant.txt");
+    @Test(expected = IllegalArgumentException.class)
+    public void duplicate5() {
+        draw("duplicate5.txt");
     }
+    @Test(expected = IllegalArgumentException.class)
+    public void duplicate3() {
+        draw("duplicate3.txt");
+    }
+
     private void draw(String file)  {
-        In in = new In(file);
-        int[] inputs = in.readAllInts();
-        Point[] points = new Point[inputs[0]];
-        for (int i = 0; i < inputs.length / 2; i++) {
-            int a = (i + 1) * 2;
-            int p = a - 1;
-            points[i] = new Point(inputs[p], inputs[a]);
-        }
+        Point[] points = getPoints(file);
         // draw the points
 //        StdDraw.enableDoubleBuffering();
 
@@ -71,6 +69,31 @@ public class BruteCollinearPointsTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Point[] getPoints(String file) {
+        In in = new In(file);
+        int n = Integer.parseInt(in.readLine().trim());
+        Point[] points = new Point[n];
+        for (int i = 0; i < n; i++) {
+            String s = in.readLine();
+            if (s == null || s.trim().length() == 0) {
+                continue;
+            }
+            if ("null".equals(s.trim())) {
+                points[i] = null;
+            } else {
+                s = s.trim();
+                int seperator = s.indexOf(' ');
+                String s1 = s.substring(0, seperator);
+                String s2 = s.substring(seperator, s.length()).trim();
+                int x = Integer.parseInt(s1);
+                int y = Integer.parseInt(s2);
+                points[i] = new Point(x, y);
+            }
+
+        }
+        return points;
     }
 
     public static void drawPoints(Point[] points) {

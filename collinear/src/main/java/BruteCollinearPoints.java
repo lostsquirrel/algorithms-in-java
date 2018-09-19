@@ -9,18 +9,13 @@
  *
  *************************************************************************/
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Arrays;
-import java.util.Comparator;
 
 
 public class BruteCollinearPoints {
     private final LineSegment[] segments;
 
-    private int counter;
+    private final int counter;
 
     /**
      * // finds all line segments containing 4 points
@@ -29,14 +24,16 @@ public class BruteCollinearPoints {
      */
     public BruteCollinearPoints(Point[] points) {
         if (points == null) {
+            counter = 0;
             throw new IllegalArgumentException();
         }
-        counter = 0;
+        int c = 0;
         int n = points.length;
         segments = new LineSegment[n];
 //        Arrays.sort(points, Point::compareTo);
 //        Arrays.sort(points);
         if (n < 4) {
+            counter = 0;
             if (n > 0) {
                 if (points[0] == null) {
                     throw new IllegalArgumentException();
@@ -48,7 +45,8 @@ public class BruteCollinearPoints {
                 }
             }
             if (n > 2) {
-                if (points[2] == null || points[0].compareTo(points[2]) == 0) {
+                if (points[2] == null || points[0].compareTo(points[2]) == 0
+                        || points[1].compareTo(points[2]) == 0) {
                     throw new IllegalArgumentException();
                 }
             }
@@ -74,13 +72,13 @@ public class BruteCollinearPoints {
                         throw new IllegalArgumentException();
                     }
                     double sik = pi.slopeTo(pk);
-                    if (Double.compare(sij, sik) != 0) {
-//                        StdOut.println(pi);
-//                        StdOut.println(pj);
-//                        StdOut.println(pk);
-//                        StdOut.println();
-                        continue;
-                    }
+//                    if (Double.compare(sij, sik) != 0) {
+////                        StdOut.println(pi);
+////                        StdOut.println(pj);
+////                        StdOut.println(pk);
+////                        StdOut.println();
+//                        continue;
+//                    }
                     for (int m = k + 1; m < n; m++) {
                         Point pl = points[m];
                         if (pl == null
@@ -90,16 +88,17 @@ public class BruteCollinearPoints {
                             throw new IllegalArgumentException();
                         }
                         double sil = pi.slopeTo(pl);
-                        if (Double.compare(sij, sil) == 0) {
+                        if (Double.compare(sik, sij) == 0 && Double.compare(sij, sil) == 0) {
                             Point[] s = new Point[]{pi, pj, pk, pl};
                             Arrays.sort(s, Point::compareTo);
-                            segments[counter++] = new LineSegment(s[0], s[3]);
+                            segments[c++] = new LineSegment(s[0], s[3]);
                         }
                     }
                 }
             }
 
         }
+        counter = c;
     }
 
     /**
@@ -116,42 +115,42 @@ public class BruteCollinearPoints {
     public static void main(String[] args) {
 
         // read the n points from a file
-        In in = new In(args[0]);
-        int n = Integer.parseInt(in.readLine().trim());
-        Point[] points = new Point[n];
-        for (int i = 0; i < n; i++) {
-            String s = in.readLine();
-            if (s == null || s.trim().length() == 0) {
-                continue;
-            }
-            if ("null".equals(s.trim())) {
-                points[i] = null;
-            } else {
-                s = s.trim();
-                int seperator = s.indexOf(' ');
-                String s1 = s.substring(0, seperator);
-                String s2 = s.substring(seperator, s.length()).trim();
-                int x = Integer.parseInt(s1);
-                int y = Integer.parseInt(s2);
-                points[i] = new Point(x, y);
-            }
-
-        }
-        // draw the points
-        StdDraw.enableDoubleBuffering();
-        StdDraw.setXscale(0, 32768);
-        StdDraw.setYscale(0, 32768);
-        for (Point p : points) {
-            p.draw();
-        }
-        StdDraw.show();
-
-        // print and draw the line segments
-        BruteCollinearPoints collinear = new BruteCollinearPoints(points);
-        for (LineSegment segment : collinear.segments()) {
-//            StdOut.println(segment);
-            segment.draw();
-        }
-        StdDraw.show();
+//        In in = new In(args[0]);
+//        int n = Integer.parseInt(in.readLine().trim());
+//        Point[] points = new Point[n];
+//        for (int i = 0; i < n; i++) {
+//            String s = in.readLine();
+//            if (s == null || s.trim().length() == 0) {
+//                continue;
+//            }
+//            if ("null".equals(s.trim())) {
+//                points[i] = null;
+//            } else {
+//                s = s.trim();
+//                int separator = s.indexOf(' ');
+//                String s1 = s.substring(0, separator);
+//                String s2 = s.substring(separator, s.length()).trim();
+//                int x = Integer.parseInt(s1);
+//                int y = Integer.parseInt(s2);
+//                points[i] = new Point(x, y);
+//            }
+//
+//        }
+//        // draw the points
+//        StdDraw.enableDoubleBuffering();
+//        StdDraw.setXscale(0, 32768);
+//        StdDraw.setYscale(0, 32768);
+//        for (Point p : points) {
+//            p.draw();
+//        }
+//        StdDraw.show();
+//
+//        // print and draw the line segments
+//        BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+//        for (LineSegment segment : collinear.segments()) {
+////            StdOut.println(segment);
+//            segment.draw();
+//        }
+//        StdDraw.show();
     }
 }
