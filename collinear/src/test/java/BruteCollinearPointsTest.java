@@ -144,4 +144,9 @@ public class BruteCollinearPointsTest {
         }
         StdOut.println(Arrays.toString(points));
     }
+
+    @Test
+    public void testInfinityCompare() {
+        System.out.println(Double.compare(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY));
+    }
 }
