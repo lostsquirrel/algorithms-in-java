@@ -118,15 +118,15 @@ public class Point implements Comparable<Point> {
      */
     public Comparator<Point> slopeOrder() {
         /* YOUR CODE HERE */
-        Point that = this;
-        return new Comparator<Point>() {
-            @Override
-            public int compare(Point o1, Point o2) {
-                return  Double.compare(that.slopeTo(o1), that.slopeTo(o2));
-            }
-        };
+        return new SlopeOrder();
     }
 
+    private class SlopeOrder implements Comparator<Point> {
+        @Override
+        public int compare(Point o1, Point o2) {
+            return  Double.compare(Point.this.slopeTo(o1), Point.this.slopeTo(o2));
+        }
+    }
 
     /**
      * Returns a string representation of this point.

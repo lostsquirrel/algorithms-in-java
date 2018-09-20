@@ -9,8 +9,6 @@
  *
  *************************************************************************/
 
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Arrays;
 
 
@@ -67,41 +65,45 @@ public class FastCollinearPoints {
             if (px.compareTo(copy[1]) == 0) {
                 throw new IllegalArgumentException();
             }
-            Double prevSlop = null;
-            Double ppSlop = null;
+            double prevSlop = Double.NEGATIVE_INFINITY;
             s[0] = px;
             int c = 1;
             for (int j = 1; j < copy.length; j++) {
                 double slopj = px.slopeTo(copy[j]);
-                StdOut.println(slopj);
                 if (j > 1) {
-                    if (ppSlop != null && Double.compare(prevSlop, slopj) == 0) {
-                        if (Double.compare(ppSlop, prevSlop) != 0) {
-                            s[c++] = copy[j - 1];
-                        }
-                        s[c++] = copy[j];
-                    } else {
-
-                        if (c >= 4) {
-                            Arrays.sort(s, 0, c, Point::compareTo);
-                            if (!contains(countedHead, s[0], sc)
-                                    || !contains(countedTail, s[c - 1], sc)) {
+                    if (Double.compare(prevSlop, slopj) == 0) {
+                        s[c] = copy[j - 1];
+                        s[++c] = copy[j];
+                        if (c >= 3 && j == copy.length - 1) {
+                            Arrays.sort(s, 0, c + 1, Point::compareTo);
+                            if (!(contains(countedHead, s[0], sc)
+                                    && contains(countedTail, s[c], sc))) {
                                 countedHead[sc] = s[0];
-                                countedTail[sc] = s[c - 1];
-                                st[sc++] = new LineSegment(s[0], s[c - 1]);
-                                break;
-                            } else {
-                                c = 1;
+                                countedTail[sc] = s[c];
+                                st[sc++] = new LineSegment(s[0], s[c]);
                             }
+
+
+                        }
+                    } else {
+                        if (c >= 3) {
+
+                            Arrays.sort(s, 0, c + 1, Point::compareTo);
+                            if (!(contains(countedHead, s[0], sc)
+                                    && contains(countedTail, s[c], sc))) {
+                                countedHead[sc] = s[0];
+                                countedTail[sc] = s[c];
+                                st[sc++] = new LineSegment(s[0], s[c]);
+                            }
+                            c = 1;
+
                         } else {
                             c = 1;
                         }
                     }
 
                 }
-                ppSlop = prevSlop;
                 prevSlop = slopj;
-
             }
 
         }
@@ -127,10 +129,10 @@ public class FastCollinearPoints {
     }
 
     public LineSegment[] segments() {
-        return segments;
+        return Arrays.copyOf(segments, counter);
     }
 
     public static void main(String[] args) {
-
+//    nothing here
     }
 }
