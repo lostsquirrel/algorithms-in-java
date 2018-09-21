@@ -9,6 +9,8 @@
  *
  *************************************************************************/
 
+import edu.princeton.cs.algs4.Stack;
+
 import java.util.Arrays;
 
 
@@ -55,8 +57,6 @@ public class FastCollinearPoints {
         Point[] copy = Arrays.copyOf(points, n);
         Point[] countedHead = new Point[n];
         Point[] countedTail = new Point[n];
-        Point[] s = new Point[n];
-
 
         int sc = 0;
         for (int i = 0; i < points.length; i++) {
@@ -66,49 +66,88 @@ public class FastCollinearPoints {
                 throw new IllegalArgumentException();
             }
             double prevSlop = Double.NEGATIVE_INFINITY;
-            s[0] = px;
-            int c = 1;
+            Point[] s = new Point[n];
+            Stack<Point> stack = new Stack<>();
+
+            int c = 0;
             for (int j = 1; j < copy.length; j++) {
-                double slopj = px.slopeTo(copy[j]);
+                Point pj = copy[j];
+                double slopj = px.slopeTo(pj);
+//                System.out.println(String.format("%s, %s, %s", slopj, px, pj));
+//                System.out.println(slopj);
+//                if (new Point(16000, 22000).compareTo(px) == 0 && new Point(6000, 2000).compareTo(pj) == 0) {
+//                    System.out.println(slopj);
+//                }
                 if (j > 1) {
                     if (Double.compare(prevSlop, slopj) == 0) {
-                        s[c] = copy[j - 1];
-                        s[++c] = copy[j];
-                        if (c >= 3 && j == copy.length - 1) {
-                            Arrays.sort(s, 0, c + 1, Point::compareTo);
-                            if (!(contains(countedHead, s[0], sc)
-                                    && contains(countedTail, s[c], sc))) {
-                                countedHead[sc] = s[0];
-                                countedTail[sc] = s[c];
-                                st[sc++] = new LineSegment(s[0], s[c]);
+                        stack.push(pj);
+                        if (j == copy.length - 1) {
+                            clean(s);
+                            c = 0;
+                            while (!stack.isEmpty() ) {
+                                s[c++] = stack.pop();
                             }
-
+                            if (c > 2) {
+                                s[c++] = px;
+                                Arrays.sort(s, 0, c , Point::compareTo);
+//                                System.out.println(Arrays.toString(Arrays.copyOf(s, c)));
+                                if (!(contains(countedHead, s[0], sc)
+                                        && contains(countedTail, s[c - 1], sc))) {
+                                    countedHead[sc] = s[0];
+                                    countedTail[sc] = s[c - 1];
+//                                System.out.println(Arrays.toString(s));
+                                    st[sc++] = new LineSegment(s[0], s[c - 1]);
+                                }
+                            }
 
                         }
                     } else {
-                        if (c >= 3) {
-
-                            Arrays.sort(s, 0, c + 1, Point::compareTo);
-                            if (!(contains(countedHead, s[0], sc)
-                                    && contains(countedTail, s[c], sc))) {
-                                countedHead[sc] = s[0];
-                                countedTail[sc] = s[c];
-                                st[sc++] = new LineSegment(s[0], s[c]);
-                            }
-                            c = 1;
-
-                        } else {
-                            c = 1;
+                        clean(s);
+                        c = 0;
+                        while (!stack.isEmpty() ) {
+                            s[c++] = stack.pop();
                         }
+                        if (c > 2) {
+                            s[c++] = px;
+                            Arrays.sort(s, 0, c, Point::compareTo);
+//                            if (new Point(16000, 22000).compareTo(px) == 0 && new Point(6000, 2000).compareTo(pj) == 0) {
+//                                System.out.println(Arrays.toString(copy));
+//                            }
+//                            System.out.println(Arrays.toString(Arrays.copyOf(s, c)));
+                            if (!(contains(countedHead, s[0], sc)
+                                    && contains(countedTail, s[c - 1], sc))) {
+                                countedHead[sc] = s[0];
+                                countedTail[sc] = s[c - 1];
+                                st[sc++] = new LineSegment(s[0], s[c - 1]);
+//                                System.out.println(Arrays.toString(Arrays.copyOf(s, c)));
+                            }
+                        }
+                        stack.push(pj);
                     }
 
+                } else {
+                    stack.push(pj);
                 }
-                prevSlop = slopj;
-            }
 
+                prevSlop = slopj;
+//                if (stack.size() > 2) {
+////                    System.out.println(stack);
+//                }
+            }
+            clean(s);
         }
         counter = sc;
         segments = Arrays.copyOf(st, sc);
+    }
+
+    private void clean(Point[] s) {
+        for (int i = 0; i < s.length; i++) {
+            if (s[i] != null) {
+                s[i] = null;
+            } else {
+                break;
+            }
+        }
     }
 
     private boolean contains(Point[] points, Point point, int n) {
