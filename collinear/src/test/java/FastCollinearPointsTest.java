@@ -45,7 +45,7 @@ public class FastCollinearPointsTest {
         }
     }
     public static void drawPoints(Point[] points) {
-        StdDraw.setPenRadius(0.005);
+        StdDraw.setPenRadius(0.01);
         for (Point p : points) {
 //            StdOut.println(p);
             p.draw();
