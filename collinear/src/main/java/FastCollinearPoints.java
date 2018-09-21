@@ -73,20 +73,12 @@ public class FastCollinearPoints {
             for (int j = 1; j < copy.length; j++) {
                 Point pj = copy[j];
                 double slopj = px.slopeTo(pj);
-//                System.out.println(String.format("%s, %s, %s", slopj, px, pj));
-//                System.out.println(slopj);
-//                if (new Point(16000, 22000).compareTo(px) == 0 && new Point(6000, 2000).compareTo(pj) == 0) {
-//                    System.out.println(slopj);
-//                }
+
                 if (j > 1) {
                     if (Double.compare(prevSlop, slopj) == 0) {
                         stack.push(pj);
                         if (j == copy.length - 1) {
-                            clean(s);
-                            c = 0;
-                            while (!stack.isEmpty() ) {
-                                s[c++] = stack.pop();
-                            }
+                            c = transfer(s, stack);
                             if (c > 2) {
                                 s[c++] = px;
                                 Arrays.sort(s, 0, c , Point::compareTo);
@@ -102,18 +94,10 @@ public class FastCollinearPoints {
 
                         }
                     } else {
-                        clean(s);
-                        c = 0;
-                        while (!stack.isEmpty() ) {
-                            s[c++] = stack.pop();
-                        }
+                        c = transfer(s, stack);
                         if (c > 2) {
                             s[c++] = px;
                             Arrays.sort(s, 0, c, Point::compareTo);
-//                            if (new Point(16000, 22000).compareTo(px) == 0 && new Point(6000, 2000).compareTo(pj) == 0) {
-//                                System.out.println(Arrays.toString(copy));
-//                            }
-//                            System.out.println(Arrays.toString(Arrays.copyOf(s, c)));
                             if (!(contains(countedHead, s[0], sc)
                                     && contains(countedTail, s[c - 1], sc))) {
                                 countedHead[sc] = s[0];
@@ -128,16 +112,22 @@ public class FastCollinearPoints {
                 } else {
                     stack.push(pj);
                 }
-
                 prevSlop = slopj;
-//                if (stack.size() > 2) {
-////                    System.out.println(stack);
-//                }
             }
             clean(s);
         }
         counter = sc;
         segments = Arrays.copyOf(st, sc);
+    }
+
+    private int transfer(Point[] s, Stack<Point> stack) {
+        int c;
+        clean(s);
+        c = 0;
+        while (!stack.isEmpty() ) {
+            s[c++] = stack.pop();
+        }
+        return c;
     }
 
     private void clean(Point[] s) {
