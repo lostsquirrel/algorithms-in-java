@@ -55,8 +55,7 @@ public class FastCollinearPoints {
         }
         LineSegment[] st = new LineSegment[n];
         Point[] copy = Arrays.copyOf(points, n);
-        Point[] countedHead = new Point[n];
-        Point[] countedTail = new Point[n];
+        MyLine[] findLines = new MyLine[n + 1];
 
         int sc = 0;
         for (int i = 0; i < points.length; i++) {
@@ -81,13 +80,12 @@ public class FastCollinearPoints {
                             c = transfer(s, stack);
                             if (c > 2) {
                                 s[c++] = px;
-                                Arrays.sort(s, 0, c , Point::compareTo);
-//                                System.out.println(Arrays.toString(Arrays.copyOf(s, c)));
-                                if (!(contains(countedHead, s[0], sc)
-                                        && contains(countedTail, s[c - 1], sc))) {
-                                    countedHead[sc] = s[0];
-                                    countedTail[sc] = s[c - 1];
-//                                System.out.println(Arrays.toString(s));
+                                Arrays.sort(s, 0, c, Point::compareTo);
+                                Point head = s[0];
+                                Point tail = s[c - 1];
+                                MyLine newLine = new MyLine(head, tail);
+                                if (newLine(findLines, newLine, sc)) {
+                                    findLines[sc] = newLine;
                                     st[sc++] = new LineSegment(s[0], s[c - 1]);
                                 }
                             }
@@ -98,12 +96,12 @@ public class FastCollinearPoints {
                         if (c > 2) {
                             s[c++] = px;
                             Arrays.sort(s, 0, c, Point::compareTo);
-                            if (!(contains(countedHead, s[0], sc)
-                                    && contains(countedTail, s[c - 1], sc))) {
-                                countedHead[sc] = s[0];
-                                countedTail[sc] = s[c - 1];
+                            Point head = s[0];
+                            Point tail = s[c - 1];
+                            MyLine newLine = new MyLine(head, tail);
+                            if (newLine(findLines, newLine, sc)) {
+                                findLines[sc] = newLine;
                                 st[sc++] = new LineSegment(s[0], s[c - 1]);
-//                                System.out.println(Arrays.toString(Arrays.copyOf(s, c)));
                             }
                         }
                         stack.push(pj);
@@ -114,20 +112,42 @@ public class FastCollinearPoints {
                 }
                 prevSlop = slopj;
             }
-            clean(s);
         }
         counter = sc;
         segments = Arrays.copyOf(st, sc);
     }
 
+    private class MyLine {
+        Point head;
+        Point tail;
+
+        MyLine(Point head, Point tail) {
+            this.head = head;
+            this.tail = tail;
+        }
+
+        boolean isSame(MyLine other) {
+            return head.compareTo(other.head) == 0
+                    && tail.compareTo(other.tail) == 0;
+        }
+    }
+
     private int transfer(Point[] s, Stack<Point> stack) {
-        int c;
         clean(s);
-        c = 0;
-        while (!stack.isEmpty() ) {
+        int c = 0;
+        while (!stack.isEmpty()) {
             s[c++] = stack.pop();
         }
         return c;
+    }
+
+    private boolean newLine(MyLine[] findLines, MyLine newLine, int n) {
+        for (int i = 0; i < n; i++) {
+            if (newLine.isSame(findLines[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void clean(Point[] s) {

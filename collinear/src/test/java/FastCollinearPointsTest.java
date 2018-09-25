@@ -27,6 +27,11 @@ public class FastCollinearPointsTest {
 //        6
         draw("grid4x4.txt");
     }
+    @Test
+    public void grid5x5() {
+//        6
+        draw("grid5x5.txt");
+    }
     @Test(expected = IllegalArgumentException.class)
     public void duplicate5() {
         draw("duplicate5.txt");
