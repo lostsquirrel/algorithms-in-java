@@ -66,4 +66,6 @@ public class PointTest {
         Point q                         = new Point(2, 5);
         p.slopeOrder().compare(q, null);
     }
+
+
 }

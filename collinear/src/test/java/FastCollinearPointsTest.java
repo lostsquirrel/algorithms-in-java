@@ -24,7 +24,7 @@ public class FastCollinearPointsTest {
     }
     @Test
     public void grid4x4() {
-//        6
+//        16
         draw("grid4x4.txt");
     }
     @Test
@@ -68,6 +68,7 @@ public class FastCollinearPointsTest {
             StdOut.println(segment);
             segment.draw();
         }
+        StdOut.println(collinear.segments().length);
         StdDraw.show();
     }
     public static Point[] getPoints(String file) {
