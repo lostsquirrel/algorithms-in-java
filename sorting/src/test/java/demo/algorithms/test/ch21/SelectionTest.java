@@ -1,6 +1,6 @@
 package demo.algorithms.test.ch21;
 
-import demo.algorithms.ch21.Selection;
+import demo.algorithms.elementary.Selection;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
-package demo.algorithms.ch23;
+package demo.algorithms.quick;
 
-import demo.algorithms.ch21.Example;
+import demo.algorithms.elementary.Example;
 import edu.princeton.cs.algs4.StdRandom;
 
 public class Quick extends Example {

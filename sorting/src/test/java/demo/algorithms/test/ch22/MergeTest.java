@@ -1,6 +1,6 @@
 package demo.algorithms.test.ch22;
 
-import demo.algorithms.ch22.Merge;
+import demo.algorithms.merge.Merge;
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 import org.junit.Assert;

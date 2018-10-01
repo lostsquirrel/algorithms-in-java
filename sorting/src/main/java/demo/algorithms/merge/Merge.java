@@ -1,4 +1,4 @@
-package demo.algorithms.ch22;
+package demo.algorithms.merge;
 
 public class Merge {
 

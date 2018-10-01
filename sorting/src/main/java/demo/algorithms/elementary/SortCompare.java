@@ -1,4 +1,4 @@
-package demo.algorithms.ch21;
+package demo.algorithms.elementary;
 
 import edu.princeton.cs.algs4.*;
 
