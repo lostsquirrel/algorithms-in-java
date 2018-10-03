@@ -1,9 +1,9 @@
 package demo.algorithms.quick;
 
-import demo.algorithms.elementary.Example;
+import demo.algorithms.utils.SortUtils;
 import edu.princeton.cs.algs4.StdRandom;
 
-public class Quick extends Example {
+public class Quick extends SortUtils {
     public static void sort(Comparable[] a) {
         StdRandom.shuffle(a); // Eliminate dependence on input.
         sort(a, 0, a.length - 1);

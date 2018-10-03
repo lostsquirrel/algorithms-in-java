@@ -1,7 +1,7 @@
 package demo.algorithms.elementary;
 
-import static demo.algorithms.elementary.Example.exch;
-import static demo.algorithms.elementary.Example.less;
+import static demo.algorithms.utils.SortUtils.exch;
+import static demo.algorithms.utils.SortUtils.less;
 
 public class Shell {
     public static void sort(Comparable[] a) {

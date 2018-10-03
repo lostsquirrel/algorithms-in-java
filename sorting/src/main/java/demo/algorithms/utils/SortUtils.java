@@ -1,9 +1,9 @@
-package demo.algorithms.elementary;
+package demo.algorithms.utils;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
-public class Example {
+public class SortUtils {
     public static void sort(Comparable[] a) { /* See Algorithms 2.1, 2.2, 2.3, 2.4, 2.5, or 2.7. */ }
 
     public static boolean less(Comparable v, Comparable w) {

@@ -1,6 +1,9 @@
 package demo.algorithms.elementary;
 
-public class Insertion extends Example {
+import static demo.algorithms.utils.SortUtils.exch;
+import static demo.algorithms.utils.SortUtils.less;
+
+public class Insertion {
 
     public static void sort(Comparable[] a) {
         int N = a.length;

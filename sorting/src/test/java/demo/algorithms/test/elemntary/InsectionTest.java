@@ -1,7 +1,7 @@
-package demo.algorithms.test.ch21;
+package demo.algorithms.test.elemntary;
 
-import demo.algorithms.elementary.Example;
 import demo.algorithms.elementary.Insertion;
+import demo.algorithms.utils.SortUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ public class InsectionTest {
     @Test
     public void testCorrection() {
         Insertion.sort(c1);
-        Example.show(c1);
-        Assert.assertTrue(Example.isSorted(c1));
+        SortUtils.show(c1);
+        Assert.assertTrue(SortUtils.isSorted(c1));
     }
 }

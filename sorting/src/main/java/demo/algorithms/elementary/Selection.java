@@ -1,6 +1,9 @@
 package demo.algorithms.elementary;
 
-public class Selection extends Example {
+import static demo.algorithms.utils.SortUtils.exch;
+import static demo.algorithms.utils.SortUtils.less;
+
+public class Selection {
 
     public static void sort(Comparable[] a) {
         for (int i = 0; i < a.length; i++) {

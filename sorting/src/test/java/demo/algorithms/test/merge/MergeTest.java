@@ -1,4 +1,4 @@
-package demo.algorithms.test.ch22;
+package demo.algorithms.test.merge;
 
 import demo.algorithms.merge.Merge;
 import edu.princeton.cs.algs4.StdRandom;

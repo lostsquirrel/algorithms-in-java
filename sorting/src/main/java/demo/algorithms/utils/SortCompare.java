@@ -1,12 +1,13 @@
-package demo.algorithms.elementary;
+package demo.algorithms.utils;
 
+import demo.algorithms.elementary.Shell;
 import edu.princeton.cs.algs4.*;
 
 public class SortCompare {
     public static double time(String alg, Double[] a) {
         Stopwatch timer = new Stopwatch();
-        if (alg.equals("Insertion")) Insertion.sort(a);
-        if (alg.equals("Selection")) Selection.sort(a);
+        if (alg.equals("Insertion")) demo.algorithms.elementary.Insertion.sort(a);
+        if (alg.equals("Selection")) demo.algorithms.elementary.Selection.sort(a);
         if (alg.equals("Shell")) Shell.sort(a);
         if (alg.equals("Merge")) Merge.sort(a);
         if (alg.equals("Quick")) Quick.sort(a);
