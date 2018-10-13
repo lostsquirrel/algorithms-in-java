@@ -12,7 +12,8 @@
         <module>collinear</module>
         <module>queues</module>
         <module>percolation</module>
-        <module>ch02</module>
+        <module>sorting</module>
+        <module>eight-puzzle</module>
     </modules>
     <properties>
         <java-version>1.8</java-version>
