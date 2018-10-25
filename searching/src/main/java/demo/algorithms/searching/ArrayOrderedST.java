@@ -42,7 +42,15 @@ public class ArrayOrderedST<Key extends Comparable<Key>, Value> implements Order
 
     @Override
     public Key ceiling(Key key) {
-        return (Key) data[tryFind(key)].key;
+        int i = tryFind(key);
+        Entry datum = data[i];
+        if (datum != null) {
+            Key tk = (Key) datum.key;
+            if (key.compareTo(tk) == 0) {
+                return tk;
+            }
+        }
+        return (Key) data[tryFind(key) + 1].key;
     }
 
     @Override
@@ -51,8 +59,9 @@ public class ArrayOrderedST<Key extends Comparable<Key>, Value> implements Order
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Key select(int k) {
-        return null;
+        return (Key) data[k].key;
     }
 
     @Override
