@@ -2,23 +2,31 @@ package demo.data.structure.tree;
 
 import lombok.Data;
 
-import javax.swing.text.html.Option;
+import java.util.Iterator;
 import java.util.Optional;
+import java.util.function.Consumer;
 
-@Data
+//@Data
 public class BinarySearchTree<T extends Comparable<T>> {
 
 
     private Node root;
+
     public BinarySearchTree(T value) {
         root = new Node(value);
     }
+    public BinarySearchTree() {
 
+    }
     public void insert(T value) {
         insert_node(value, root);
     }
 
     public void insert_node(T value, Node parent) {
+        if (parent == null) {
+            root = new Node(value);
+            return;
+        }
         if (parent.value.compareTo(value) <= 0) {
             if (parent.right == null) {
                 parent.right = new Node(value);
@@ -55,6 +63,15 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
         return opt;
     }
+
+    private T minValue(Node p) {
+        T v = p.value;
+        while (p.left != null) {
+            v = p.value;
+            p = p.left;
+        }
+        return v;
+    }
     public boolean contains(T value) {
         return find(value).isPresent();
     }
@@ -63,12 +80,37 @@ public class BinarySearchTree<T extends Comparable<T>> {
         remove_node(value, root);
     }
 
-    private boolean remove_node(T value, Node parent) {
-        boolean removed = false;
-
-        return removed;
+    private Node remove_node(T value, Node parent) {
+        if (parent == null) return parent;
+        if (value.compareTo(parent.value) < 0) {
+           parent.left = remove_node(value, parent.left);
+        } else if (value.compareTo(parent.value) > 0) {
+            parent.right = remove_node(value, parent.right);
+        } else {
+            if (parent.left == null) {
+                return parent.right;
+            } else if (parent.right == null) {
+                return parent.left;
+            }
+            parent.value = minValue(parent.right);
+            parent.right = remove_node(parent.value, parent.right);
+        }
+        return parent;
     }
 
+    public void forEach(Consumer<T> hander) {
+        inorderRec(root, hander);
+    }
+
+    void inorderRec(Node root, Consumer<T> hander)
+    {
+        if (root != null)
+        {
+            inorderRec(root.left, hander);
+            hander.accept(root.value);
+            inorderRec(root.right, hander);
+        }
+    }
     private class Node {
         Node(T value) {
             this.value = value;

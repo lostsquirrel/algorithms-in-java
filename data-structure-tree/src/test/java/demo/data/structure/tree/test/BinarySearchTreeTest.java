@@ -31,6 +31,29 @@ public class BinarySearchTreeTest {
         BinarySearchTree<Integer> bst = initTree();
         Stream.of(1, 12, 23, 34, 45, 56, 67, 78, 89, 94, 108).forEach(x -> Assert.assertFalse(bst.contains(x)));
     }
+
+    @Test
+    public void testRemoveFromEmptyTree() {
+        new BinarySearchTree<String>().remove("abc");
+    }
+
+    @Test
+    public void testRemoveElementFromTree() {
+        BinarySearchTree<Integer> bst = initTree();
+        bst.forEach(System.out::println);
+        Arrays.stream(insertData).forEach(x -> bst.remove(x));
+
+        bst.forEach(System.out::println);
+    }
+
+    @Test
+    public void testRemoveNotIn() {
+        BinarySearchTree<Integer> bst = initTree();
+        bst.forEach(System.out::println);
+        Stream.of(1, 12, 23, 34, 45, 56, 67, 78, 89, 94, 108).forEach(x -> bst.remove(x));
+        bst.forEach(System.out::println);
+    }
+
     private BinarySearchTree<Integer> initTree() {
         BinarySearchTree<Integer> bst = null;
         for (Integer x : insertData) {
